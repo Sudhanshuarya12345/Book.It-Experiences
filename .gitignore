@@ -1,0 +1,71 @@
+# -------------------------------
+# Node & Dependencies
+# -------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+
+# -------------------------------
+# Build Outputs
+# -------------------------------
+dist/
+build/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+
+# -------------------------------
+# Environment & Secrets
+# -------------------------------
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# -------------------------------
+# Logs & Temp Files
+# -------------------------------
+logs/
+*.log
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# -------------------------------
+# IDE & Editor Files
+# -------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# -------------------------------
+# OS Files
+# -------------------------------
+*.DS_Store
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# -------------------------------
+# React Specific
+# -------------------------------
+# If using Vite:
+.vite/
+# If using CRA:
+.env.*.local
+
+# -------------------------------
+# Backend (Express/Mongoose)
+# -------------------------------
+/uploads/
+*.db
+*.sqlite
+/mongo-data/
