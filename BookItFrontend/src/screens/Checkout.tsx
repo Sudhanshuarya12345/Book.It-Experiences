@@ -114,7 +114,7 @@ const Checkout: React.FC = () => {
   
       if (!res.ok) throw new Error("Failed to create booking");
   
-      const data = await res.json();
+      await res.json();
   
       navigate("/result", {
         state: {
