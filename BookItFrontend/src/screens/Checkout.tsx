@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import api from "../api/api";
 
 type Slot = {
   _id: string;
@@ -63,14 +64,9 @@ const Checkout: React.FC = () => {
   const applyPromo = async () => {
     if (!promo.trim()) return;
     try {
-      const res = await fetch("http://localhost:5000/api/bookings/promo/validate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: promo }),
-      });
-      const data = await res.json();
-      if (data.valid) {
-        setDiscountAmount(data.discount);
+      const res = await api.post("/bookings/promo/validate", { code: promo });
+      if (res.data.valid) {
+        setDiscountAmount(res.data.discount);
         setPromoError(null);
       } else {
         setDiscountAmount(0);
@@ -106,15 +102,11 @@ const Checkout: React.FC = () => {
         totalprice : total,
       };
   
-      const res = await fetch("http://localhost:5000/api/bookings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-  
-      if (!res.ok) throw new Error("Failed to create booking");
-  
-      await res.json();
+      const res = await api.post("/bookings", payload);
+          
+      if (res.status !== 200 && res.status !== 201) {
+        throw new Error("Failed to create booking");
+      }
   
       navigate("/result", {
         state: {
