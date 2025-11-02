@@ -56,6 +56,10 @@ export const createBooking = async (req: Request, res: Response) => {
       return res.status(400).json({ error: "This slot is fully booked" });
     }
 
+    if ((matchedSlot.booked + quantity) > matchedSlot.capacity) {
+      return res.status(400).json({ error: `${quantity} slots are not available` });
+    }
+
     const discount = promoCodes[promoCode] || 0;
     const totalPrice = Math.max(0, experience.price * quantity - discount);
 
@@ -79,7 +83,7 @@ export const createBooking = async (req: Request, res: Response) => {
         "slots.time": slot.time,
       },
       {
-        $inc: { "slots.$.booked": 1 },
+        $inc: { "slots.$.booked": quantity },
       }
     );
 
